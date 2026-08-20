@@ -3,6 +3,7 @@ import UserCard from './exercises/exercise1';
 import Blog from './exercises/exercise2';
 import UserCardEx3 from './exercises/exercise3';
 import Exercise4 from './exercises/exercise4';
+import Exercise5 from './exercises/exercise5';
 import './App.css';
 
 const App = () => {
@@ -28,6 +29,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 4</h3>
                 <Exercise4 />
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 5</h3>
+                <Exercise5 />
             </div>
         </>
     );
