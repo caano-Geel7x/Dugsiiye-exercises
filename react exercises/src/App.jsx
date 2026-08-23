@@ -5,6 +5,7 @@ import UserCardEx3 from './exercises/exercise3';
 import Exercise4 from './exercises/exercise4';
 import Exercise5 from './exercises/exercise5';
 import './App.css';
+import ShoppingCart from './exercises/exercise6';
 
 const App = () => {
     return (
@@ -33,6 +34,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 5</h3>
                 <Exercise5 />
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 6</h3>
+                 <ShoppingCart />
             </div>
         </>
     );
