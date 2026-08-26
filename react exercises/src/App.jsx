@@ -6,8 +6,9 @@ import Exercise4 from './exercises/exercise4';
 import Exercise5 from './exercises/exercise5';
 import './App.css';
 import Exercise6 from './exercises/exercise6';
+import Exercise7 from './exercises/exercise7';
 
-const App = () => {
+const App = () => {l
     return (
         <>
             <div className="exercise-block">
@@ -38,6 +39,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 6</h3>
                  <Exercise6 />
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 7</h3>
+                 <Exercise7/>
             </div>
         </>
     );
