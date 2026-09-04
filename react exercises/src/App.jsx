@@ -8,8 +8,9 @@ import './App.css';
 import Exercise6 from './exercises/exercise6';
 import Exercise7 from './exercises/exercise7';
 import Exercise8 from './exercises/exercise8';
+import  GitHubUserSearch from './exercises/exercise9';
 
-const App = () => {l
+const App = () => {
     return (
         <>
             <div className="exercise-block">
@@ -48,6 +49,10 @@ const App = () => {l
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 8</h3>
                  <Exercise8/>
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 9</h3>
+                 < GitHubUserSearch/>
             </div>
         </>
     );
