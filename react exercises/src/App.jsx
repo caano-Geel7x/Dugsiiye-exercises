@@ -9,8 +9,13 @@ import Exercise6 from './exercises/exercise6';
 import Exercise7 from './exercises/exercise7';
 import Exercise8 from './exercises/exercise8';
 import  GitHubUserSearch from './exercises/exercise9';
+import UserList from './exercises/exercise10';
 
 const App = () => {
+     const users = [
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    { id: 2, name: 'Bob', email: 'bob@example.com' },];
+
     return (
         <>
             <div className="exercise-block">
@@ -53,6 +58,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 9</h3>
                  < GitHubUserSearch/>
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 10</h3>
+                <UserList users={users} />
             </div>
         </>
     );
