@@ -10,6 +10,7 @@ import Exercise7 from './exercises/exercise7';
 import Exercise8 from './exercises/exercise8';
 import  GitHubUserSearch from './exercises/exercise9';
 import UserList from './exercises/exercise10';
+import LogInForm from './exercises/exercise11';
 
 const App = () => {
      const users = [
@@ -62,6 +63,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 10</h3>
                 <UserList users={users} />
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 11</h3>
+               < LogInForm  />
             </div>
         </>
     );
