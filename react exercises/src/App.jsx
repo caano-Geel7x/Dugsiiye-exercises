@@ -12,6 +12,7 @@ import  GitHubUserSearch from './exercises/exercise9';
 import UserList from './exercises/exercise10';
 import LogInForm from './exercises/exercise11';
 import  Counter from './exercises/exercise12';
+import DoubleCounter from './exercises/exercise13';
 
 const App = () => {
      const users = [
@@ -72,6 +73,10 @@ const App = () => {
             <div className="exercise-block">
                 <h3 className="exercise-label">Exercise 12</h3>
                <  Counter />
+            </div>
+            <div className="exercise-block">
+                <h3 className="exercise-label">Exercise 13</h3>
+               <  DoubleCounter/>
             </div>
         </>
     );
