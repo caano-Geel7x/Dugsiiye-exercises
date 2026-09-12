@@ -50,3 +50,13 @@ const GitHubUserSearch = () => {
 };
 
 export default GitHubUserSearch;
+
+
+
+import React from 'react'
+
+export const practice = () => {
+  return (
+    <div>practice</div>
+  )
+}
