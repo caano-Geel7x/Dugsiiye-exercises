@@ -17,6 +17,7 @@ import MultiStepForm from "./exercises/exercise14";
 import React, { useState } from "react";
 import Greeting from "./exercises/exercise15";
 import LanguageContext from "./exercises/languagecontext";
+import Exercise16 from "./exercises/exercise16";
 
 const App = () => {
   const [language, setLanguage] = useState("en");
@@ -99,6 +100,10 @@ const App = () => {
         </button>
         <Greeting />
       </div>
+      <div className="exercise-block">
+    <h3 className="exercise-label">Exercise 16</h3>
+    <Exercise16 />
+</div>
      </LanguageContext.Provider>
   );
 };
