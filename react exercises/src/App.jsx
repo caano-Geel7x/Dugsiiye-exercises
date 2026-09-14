@@ -19,6 +19,7 @@ import Greeting from "./exercises/exercise15";
 import LanguageContext from "./exercises/languagecontext";
 import Exercise16 from "./exercises/exercise16";
 import  ContactForm from "./exercises/exercise17";
+import ContactApp from "./exercises/exercise18";
 
 const App = () => {
   const [language, setLanguage] = useState("en");
@@ -108,6 +109,10 @@ const App = () => {
    <div className="exercise-block">
     <h3 className="exercise-label">Exercise 17</h3>
     < ContactForm />
+</div>
+   <div className="exercise-block">
+    <h3 className="exercise-label">Exercise 18</h3>
+    < ContactApp  />
 </div>
      </LanguageContext.Provider>
   );
