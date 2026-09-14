@@ -1,0 +1,159 @@
+/* Container Layout */
+.pageContainer {
+  min-height: 100vh;
+  background-color: #eeeefc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Navigation */
+.navHeader {
+  background-color: #ffffff;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.navButton {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #555555;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.activeNavButton {
+  background-color: #f3e8ff;
+  color: #8b5cf6;
+}
+
+/* Main Content Wrapper */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Card Container */
+.card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 32px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  text-align: center;
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 28px 0;
+}
+
+/* Input Form */
+.form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+ color: #faf6f6 !important;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:focus {
+  border-color: #8b5cf6;
+}
+
+.addButton {
+  background-color: #8b5cf6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #7c3aed;
+}
+
+/* Todo List Items */
+.todoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  padding: 14px 16px;
+  border-radius: 10px;
+  gap: 12px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+.todoText {
+  flex: 1;
+  color: #edeff1;
+  font-size: 15px;
+}
+
+.completedText {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.deleteButton {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.deleteButton:hover {
+  text-decoration: underline;
+}
+
+.placeholderTab {
+  text-align: center;
+  color: #64748b;
+  font-size: 18px;
+}
