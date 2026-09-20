@@ -21,6 +21,8 @@ import Exercise16 from "./exercises/exercise16";
 import  ContactForm from "./exercises/exercise17";
 import ContactApp from "./exercises/exercise18";
 import Apps from "./exercises/exercise19";
+import  StudentDashboard from './exercises/exercise21' 
+
 
 const App = () => {
   const [language, setLanguage] = useState("en");
@@ -116,6 +118,11 @@ const App = () => {
     < ContactApp  />
 </div>
 <Apps/>
+<div className="exercise-block">
+    <h3 className="exercise-label">Exercise 21`</h3>
+    < StudentDashboard  />
+</div>
+
      </LanguageContext.Provider>
   );
 };
