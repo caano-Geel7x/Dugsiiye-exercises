@@ -22,9 +22,10 @@ import  ContactForm from "./exercises/exercise17";
 import ContactApp from "./exercises/exercise18";
 import Apps from "./exercises/exercise19";
 import  StudentDashboard from './exercises/exercise21' 
+import Hooks from "./exercises/practice";
+import  Formcantrolled from './exercises/exercise22'
 
-
-const App = () => {
+function App() {
   const [language, setLanguage] = useState("en");
   const togglelanguage = () => {
     setLanguage((prevLang) => (prevLang === "en" ? "es" : "en"));
@@ -100,31 +101,40 @@ const App = () => {
       </div>
       <div className="exercise-block">
         <h3 className="exercise-label">Exercise 15</h3>
-        <button onClick={ togglelanguage}>
+        <button onClick={togglelanguage}>
           Switch to {language === "en" ? "Spanish" : "English"}
         </button>
         <Greeting />
       </div>
-   <div className="exercise-block">
-    <h3 className="exercise-label">Exercise 16</h3>
-    <Exercise16 />
-</div>
-   <div className="exercise-block">
-    <h3 className="exercise-label">Exercise 17</h3>
-    < ContactForm />
-</div>
-   <div className="exercise-block">
-    <h3 className="exercise-label">Exercise 18</h3>
-    < ContactApp  />
-</div>
-<Apps/>
-<div className="exercise-block">
-    <h3 className="exercise-label">Exercise 21`</h3>
-    < StudentDashboard  />
-</div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">Exercise 16</h3>
+        <Exercise16 />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">Exercise 17</h3>
+        <ContactForm />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">Exercise 18</h3>
+        <ContactApp />
+      </div>
+      <Apps />
+      <div className="exercise-block">
+        <h3 className="exercise-label">Exercise 21</h3>
+        <StudentDashboard />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">exercise 22</h3>
+        <Formcantrolled />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">PRACTICE</h3>
+        <Hooks />
+      </div>
+      
 
-     </LanguageContext.Provider>
+    </LanguageContext.Provider>
   );
-};
+}
 
 export default App;
