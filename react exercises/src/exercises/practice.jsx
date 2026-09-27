@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function hooks() {
   return (
-    <div>hooks</div>
+    <div> for practice only not exrcise</div>
   )
 }

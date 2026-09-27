@@ -16,7 +16,7 @@ import DoubleCounter from "./exercises/exercise13";
 import MultiStepForm from "./exercises/exercise14";
 import React, { useState } from "react";
 import Greeting from "./exercises/exercise15";
-import LanguageContext from "./exercises/languagecontext";
+import LanguageContext from "./exercises/Languagecontext";
 import Exercise16 from "./exercises/exercise16";
 import  ContactForm from "./exercises/exercise17";
 import ContactApp from "./exercises/exercise18";
@@ -24,6 +24,7 @@ import Apps from "./exercises/exercise19";
 import  StudentDashboard from './exercises/exercise21' 
 import Hooks from "./exercises/practice";
 import  Formcantrolled from './exercises/exercise22'
+import  Formvalid from './exercises/exercise23'
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -126,6 +127,10 @@ function App() {
       <div className="exercise-block">
         <h3 className="exercise-label">exercise 22</h3>
         <Formcantrolled />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">exercise 23</h3>
+        <Formvalid />
       </div>
       <div className="exercise-block">
         <h3 className="exercise-label">PRACTICE</h3>
