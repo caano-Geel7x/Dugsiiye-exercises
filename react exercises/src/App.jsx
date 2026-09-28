@@ -25,6 +25,7 @@ import  StudentDashboard from './exercises/exercise21'
 import Hooks from "./exercises/practice";
 import  Formcantrolled from './exercises/exercise22'
 import  Formvalid from './exercises/exercise23'
+import RegistrationFor from './exercises/exercise24'
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -131,6 +132,10 @@ function App() {
       <div className="exercise-block">
         <h3 className="exercise-label">exercise 23</h3>
         <Formvalid />
+      </div>
+      <div className="exercise-block">
+        <h3 className="exercise-label">exercise 24</h3>
+        <RegistrationFor />
       </div>
       <div className="exercise-block">
         <h3 className="exercise-label">PRACTICE</h3>

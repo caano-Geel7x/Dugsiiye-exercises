@@ -1,297 +1,128 @@
-﻿import { useState } from 'react'
+import { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 
-function  Formvalid () {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    role: "",
-    experience: "",
-    skills: [],
-    agreeToTerms: false,
-    notifications: false
+const STORAGE_KEY = "developer-application-form";
+const initialFormData = { fullName: "", email: "", role: "", experience: "", skills: [], agreeToTerms: false, notifications: false };
+
+const getSavedData = () => {
+  try {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    return savedData ? { ...initialFormData, ...JSON.parse(savedData) } : initialFormData;
+  } catch {
+    return initialFormData;
+  }
+};
+
+function Formvalid() {
+  const [submitMessage, setSubmitMessage] = useState("");
+  const { register, handleSubmit, watch, reset, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: useMemo(getSavedData, []), mode: "onChange", reValidateMode: "onChange",
   });
+  const formData = watch();
 
-  const [errors, setErrors] = useState({});
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  }, [formData]);
 
-  const roles = [
-    "Frontend Developer",
-    "Backend Developer",
-    "Full Stack Developer",
-    "UI/UX Designer",
-    "Product Manager"
-  ];
+  const roles = ["Frontend Developer", "Backend Developer", "Full Stack Developer", "UI/UX Designer", "Product Manager"];
+  const skillOptions = ["React", "JavaScript", "TypeScript", "Node.js", "Python", "Java", "UI Design", "API Development"];
+  const inputClass = (name) => `w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:outline-none focus-visible:ring-4 ${errors[name] ? "border-red-500 bg-red-50 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-indigo-500 focus:ring-indigo-100"}`;
 
-  const skillOptions = [
-    "React", "JavaScript", "TypeScript", "Node.js",
-    "Python", "Java", "UI Design", "API Development"
-  ];
-
-  const validateField = (name, value) => {
-    let error = "";
-    
-    if (name === 'fullName') {
-      if (!value.trim()) {
-        error = "Full name is required";
-      } else if (!/^[a-zA-Z\s]{2,30}$/.test(value)) {
-        error = "Please enter a valid name (2-30 characters, letters only)";
-      }
-    }
-    
-    if (name === 'email') {
-      if (!value) {
-        error = "Email is required";
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        error = "Please enter a valid email address";
-      }
-    }
-    
-    if (name === 'role') {
-      if (!value) {
-        error = "Please select a role";
-      }
-    }
-    
-    if (name === 'experience') {
-      if (!value) {
-        error = "Experience is required";
-      } else if (isNaN(value) || value <= 4 || value > 50) {
-        error = "Please enter valid years of experience (0-50)";
-      }
-    }
-    
-    if (name === 'skills') {
-      if (!value || value.length < 3) {
-        error = "Please select at least 3 skill";
-      }
-    }
-    
-    if (name === 'agreeToTerms') {
-      if (!value) {
-        error = "You must agree to the terms";
-      }
-    }
-    
-    return error;
+  const onSubmit = async (data) => {
+    setSubmitMessage("");
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    console.log("Form submitted:", data);
+    setSubmitMessage("Application submitted successfully!");
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: newValue
-    }));
-
-    // Show validation immediately when user types/changes value
-    const error = validateField(name, newValue);
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
-  };
-
-  const handleSkillChange = (skill) => {
-    const newSkills = formData.skills.includes(skill)
-      ? formData.skills.filter(s => s !== skill)
-      : [...formData.skills, skill];
-    
-    setFormData(prev => ({
-      ...prev,
-      skills: newSkills
-    }));
-
-    // Validate skills immediately
-    const error = validateField('skills', newSkills);
-    setErrors(prev => ({
-      ...prev,
-      skills: error
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Validate all fields
-    const formErrors = {};
-    Object.keys(formData).forEach(key => {
-      const error = validateField(key, formData[key]);
-      if (error) {
-        formErrors[key] = error;
-      }
-    });
-
-    if (Object.keys(formErrors).length === 0) {
-      console.log('Form submitted:', formData);
-      // Handle successful submission
-    } else {
-      setErrors(formErrors);
-    }
+  const handleReset = () => {
+    reset(initialFormData);
+    localStorage.removeItem(STORAGE_KEY);
+    setSubmitMessage("");
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 ring-1 ring-zinc-900/5">
-        <h2 className="text-2xl font-semibold text-zinc-900 mb-8 text-center">
-          Developer Application Form
-        </h2>
-        
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Full Name Input */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className={`mt-1 block w-full rounded-lg border ${
-                errors.fullName
-                  ? 'border-red-300 ring-red-500'
-                  : 'border-zinc-300 ring-blue-500'
-              } px-3 py-2 text-sm focus:outline-none focus:ring-2`}
-            />
-            {errors.fullName && (
-              <p className="mt-2 text-sm text-red-600">{errors.fullName}</p>
-            )}
-          </div>
-
-          {/* Email Input */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`mt-1 block w-full rounded-lg border ${
-                errors.email
-                  ? 'border-red-300 ring-red-500'
-                  : 'border-zinc-300 ring-blue-500'
-              } px-3 py-2 text-sm focus:outline-none focus:ring-2`}
-            />
-            {errors.email && (
-              <p className="mt-2 text-sm text-red-600">{errors.email}</p>
-            )}
-          </div>
-
-          {/* Role Select */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Role
-            </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className={`mt-1 block w-full rounded-lg border ${
-                errors.role
-                  ? 'border-red-300 ring-red-500'
-                  : 'border-zinc-300 ring-blue-500'
-              } px-3 py-2 text-sm focus:outline-none focus:ring-2`}
-            >
-              <option value="">Select a role</option>
-              {roles.map(role => (
-                <option key={role} value={role}>{role}</option>
-              ))}
-            </select>
-            {errors.role && (
-              <p className="mt-2 text-sm text-red-600">{errors.role}</p>
-            )}
-          </div>
-
-          {/* Experience Input */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Years of Experience
-            </label>
-            <input
-              type="number"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              min="0"
-              max="50"
-              className={`mt-1 block w-full rounded-lg border ${
-                errors.experience
-                  ? 'border-red-300 ring-red-500'
-                  : 'border-zinc-300 ring-blue-500'
-              } px-3 py-2 text-sm focus:outline-none focus:ring-2`}
-            />
-            {errors.experience && (
-              <p className="mt-2 text-sm text-red-600">{errors.experience}</p>
-            )}
-          </div>
-
-          {/* Skills Checkboxes */}
-          <div>
-            <label className="block text-sm font-medium text-zinc-700 mb-2">
-              Skills
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              {skillOptions.map(skill => (
-                <label key={skill} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.skills.includes(skill)}
-                    onChange={() => handleSkillChange(skill)}
-                    className="h-4 w-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-zinc-600">{skill}</span>
-                </label>
-              ))}
+    <section className="min-h-screen bg-slate-100 px-3 py-8 font-sans sm:px-6 sm:py-14" aria-labelledby="application-title">
+      <div className="mx-auto grid max-w-5xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/10 lg:grid-cols-[.8fr_1.2fr]">
+        <aside className="relative overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-800 to-violet-900 p-7 text-white sm:p-10 lg:p-12">
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-violet-400/20 blur-2xl" />
+          <div className="relative flex h-full flex-col justify-between gap-12">
+            <div>
+              <span className="text-xs font-extrabold tracking-[0.18em] text-indigo-200">CAREER OPPORTUNITY</span>
+              <h1 className="mt-5 text-3xl font-bold leading-tight sm:text-4xl">Bring your skills to the team.</h1>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-indigo-100">Share your experience and help us discover where your strengths can make an impact.</p>
             </div>
-            {errors.skills && (
-              <p className="mt-2 text-sm text-red-600">{errors.skills}</p>
-            )}
+            <ul className="space-y-4 text-sm text-indigo-100">
+              <li className="flex items-center gap-3"><span className="rounded-full bg-white/15 px-2 py-1">✓</span> Tell us what you do best</li>
+              <li className="flex items-center gap-3"><span className="rounded-full bg-white/15 px-2 py-1">✓</span> Your progress is saved automatically</li>
+              <li className="flex items-center gap-3"><span className="rounded-full bg-white/15 px-2 py-1">✓</span> Complete the application in minutes</li>
+            </ul>
           </div>
+        </aside>
 
-          {/* Terms Checkbox */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="agreeToTerms"
-              checked={formData.agreeToTerms}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500"
-            />
-            <label className="text-sm text-zinc-700">
-              I agree to the terms and conditions
-            </label>
-          </div>
-          {errors.agreeToTerms && (
-            <p className="mt-2 text-sm text-red-600">{errors.agreeToTerms}</p>
-          )}
+        <div className="p-6 sm:p-10 lg:p-12">
+          <header className="mb-8">
+            <span className="text-xs font-extrabold tracking-[0.14em] text-indigo-600">YOUR PROFILE</span>
+            <h2 id="application-title" className="mt-2 text-3xl font-bold text-slate-900">Developer application</h2>
+            <p className="mt-2 text-sm text-slate-500">A few details help us understand your experience.</p>
+          </header>
 
-          {/* Notifications Checkbox */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="notifications"
-              checked={formData.notifications}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500"
-            />
-            <label className="text-sm text-zinc-700">
-              Receive notifications about new opportunities
-            </label>
-          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5" noValidate>
+            <div className="grid gap-2">
+              <label htmlFor="fullName" className="text-sm font-bold text-slate-700">Full name</label>
+              <input id="fullName" className={inputClass("fullName")} placeholder="e.g. Alex Johnson" autoComplete="name" aria-invalid={Boolean(errors.fullName)} {...register("fullName", { required: "Full name is required", pattern: { value: /^[a-zA-Z\s]{2,30}$/, message: "Enter 2–30 letters only" } })} />
+              {errors.fullName && <p className="text-xs font-semibold text-red-700" role="alert">{errors.fullName.message}</p>}
+            </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2"
-          >
-            Submit Application
-          </button>
-        </form>
+            <div className="grid gap-2">
+              <label htmlFor="email" className="text-sm font-bold text-slate-700">Email address</label>
+              <input id="email" type="email" className={inputClass("email")} placeholder="you@example.com" autoComplete="email" aria-invalid={Boolean(errors.email)} {...register("email", { required: "Email is required", pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email address" } })} />
+              {errors.email && <p className="text-xs font-semibold text-red-700" role="alert">{errors.email.message}</p>}
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-2">
+                <label htmlFor="role" className="text-sm font-bold text-slate-700">Target role</label>
+                <select id="role" className={inputClass("role")} {...register("role", { required: "Please select a role" })}>
+                  <option value="">Select a role</option>
+                  {roles.map((role) => <option key={role} value={role}>{role}</option>)}
+                </select>
+                {errors.role && <p className="text-xs font-semibold text-red-700" role="alert">{errors.role.message}</p>}
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="experience" className="text-sm font-bold text-slate-700">Years of experience</label>
+                <input id="experience" type="number" min="0" max="50" className={inputClass("experience")} placeholder="0" {...register("experience", { required: "Experience is required", min: { value: 0, message: "Cannot be negative" }, max: { value: 50, message: "Cannot exceed 50 years" } })} />
+                {errors.experience && <p className="text-xs font-semibold text-red-700" role="alert">{errors.experience.message}</p>}
+              </div>
+            </div>
+
+            <fieldset className="grid gap-3">
+              <legend className="text-sm font-bold text-slate-700">Core skills <span className="font-medium text-slate-400">(choose at least 3)</span></legend>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {skillOptions.map((skill) => <label key={skill} className="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs font-semibold text-slate-600 transition hover:border-indigo-300 hover:bg-indigo-50 has-[:checked]:border-indigo-400 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700"><input type="checkbox" value={skill} className="h-4 w-4 accent-indigo-600" {...register("skills", { validate: (value) => value.length >= 3 || "Please select at least 3 skills" })} /><span>{skill}</span></label>)}
+              </div>
+              {errors.skills && <p className="text-xs font-semibold text-red-700" role="alert">{errors.skills.message}</p>}
+            </fieldset>
+
+            <div className={`flex items-center gap-2 rounded-xl border p-3 ${errors.agreeToTerms ? "border-red-300 bg-red-50" : "border-transparent"}`}>
+              <input id="agreeToTerms" type="checkbox" className="h-4 w-4 accent-indigo-600" {...register("agreeToTerms", { required: "You must agree to the terms" })} />
+              <label htmlFor="agreeToTerms" className="text-sm font-bold text-slate-700">I agree to the terms and conditions</label>
+            </div>
+            {errors.agreeToTerms && <p className="-mt-3 text-xs font-semibold text-red-700" role="alert">{errors.agreeToTerms.message}</p>}
+
+            <label className="flex items-center gap-2 rounded-xl p-3 text-sm font-bold text-slate-700"><input type="checkbox" className="h-4 w-4 accent-indigo-600" {...register("notifications")} /> Receive notifications about new opportunities</label>
+
+            <div className="mt-1 flex flex-col-reverse gap-3 sm:flex-row">
+              <button type="button" className="rounded-xl border border-slate-300 bg-white px-5 py-3 font-bold text-slate-600 transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200 disabled:cursor-not-allowed disabled:opacity-60" onClick={handleReset} disabled={isSubmitting}>Reset form</button>
+              <button type="submit" className="flex-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3 font-bold text-white shadow-lg shadow-indigo-500/25 transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-200 disabled:cursor-not-allowed disabled:opacity-60" disabled={isSubmitting}>{isSubmitting ? "Submitting…" : "Submit application"}</button>
+            </div>
+            {submitMessage && <p className="rounded-xl border border-green-200 bg-green-50 p-3 text-center text-sm font-semibold text-green-700" role="status">✓ {submitMessage}</p>}
+            <p className="-mt-2 text-center text-sm text-slate-500">Your progress is saved automatically on this device.</p>
+          </form>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-export default  Formvalid ;
+export default Formvalid;
