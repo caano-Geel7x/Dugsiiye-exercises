@@ -26,6 +26,7 @@ import Hooks from "./exercises/practice";
 import  Formcantrolled from './exercises/exercise22'
 import  Formvalid from './exercises/exercise23'
 import RegistrationFor from './exercises/exercise24'
+import Exercise26 from './exercises/exercise26'
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -141,7 +142,10 @@ function App() {
         <h3 className="exercise-label">PRACTICE</h3>
         <Hooks />
       </div>
-      
+      <div className="exercise-block">
+        <h3 className="exercise-label">Exercise 26</h3>
+        <Exercise26 />
+      </div>
 
     </LanguageContext.Provider>
   );
