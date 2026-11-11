@@ -1,0 +1,34 @@
+db.students.insertMany([
+  { name: "Caano Geel", email: "caano@gmail.com", points: 10, courses: ["HTML", "CSS"] },
+  { name: "Khadar", email: "khadar@gmail.com", points: 15, courses: ["React", "Node.js"] },
+  { name: "Ahmed", email: "ahmed@gmail.com", points: 20, courses: ["JavaScript", "React"] }
+])
+
+db.students.updateOne(
+  { name: "Caano Geel" },
+  { $set: { email: "caano@edu.com" } }
+)
+
+db.students.updateOne(
+  { name: "Khadar" },
+  { $inc: { points: 5 } }
+)
+
+db.students.updateOne(
+  { name: "Ahmed" },
+  { $push: { courses: "MongoDB" } }
+)
+
+db.students.updateOne(
+  { name: "Ahmed" },
+  { $pull: { courses: "JavaScript" } }
+)
+
+db.students.updateOne(
+  { name: "Khadar" },
+  {
+    $set: { email: "khadar@edu.com" },
+    $inc: { points: 10 },
+    $push: { courses: "Express.js" }
+  }
+)

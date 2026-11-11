@@ -1,0 +1,31 @@
+use("database exercises");
+
+db.exercise1.insertMany([
+  {
+    name: "Ahmed",
+    email: "ahmed@gmail.com",
+    age: 20,
+    courses: ["HTML", "CSS"]
+  },
+  {
+    name: "Sarah",
+    email: "sarah@gmail.com",
+    age: 22,
+    courses: ["JavaScript", "React"]
+  },
+  {
+    name: "caano-geel",
+    email: "caano@gmail.com",
+    age: 25,
+    courses: ["MongoDB", "Node.js"]
+  }
+]);
+
+db.exercise1.updateOne(
+  { name: "Ahmed" },
+  { $set: { email: "Ahmednew@gmail.com" } }
+);
+
+db.exercise1.deleteOne({ name: "Ahmed" });
+
+db.exercise1.find();
