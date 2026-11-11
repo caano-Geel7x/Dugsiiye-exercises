@@ -1,0 +1,13 @@
+.card {
+  width: 300px;
+  height: 150px;
+  border: 2px solid #333;
+  padding: 20px;
+  margin: 20px auto;
+  transition: box-shadow 0.3s ease;
+}
+
+/* The highlight class adds a glowing effect */
+.card.highlight {
+  box-shadow: 0 0 20px #ff0;
+}
